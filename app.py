@@ -41,8 +41,8 @@ if st.session_state.page == "home":
     st.session_state.name = st.text_input("Enter your Name")
 
     st.session_state.difficulty = st.radio(
-        "Select Difficulty",
-        ["Easy", "Medium", "Hard"]
+        "I want to play that game",
+        ["Yes", "No"]
     )
 
     if st.button("🚀 Start Game"):
@@ -54,9 +54,9 @@ if st.session_state.page == "home":
 # ----------------------------------------------------
 # QUESTION PAGE
 # ----------------------------------------------------
-elif st.session_state.page == "question":
+elif st.session_state.page == "Scenario":
 
-    st.title("Question 1 of 10")
+    st.title("Scenario")
 
     st.write("### Read the following post")
 
