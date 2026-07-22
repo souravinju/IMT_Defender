@@ -47,7 +47,7 @@ if st.session_state.page == "home":
 
     if st.button("🚀 Start Game"):
 
-        st.session_state.page = "question"
+        st.session_state.page = "Scenario"
 
         st.rerun()
 
