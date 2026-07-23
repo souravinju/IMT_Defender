@@ -320,9 +320,9 @@ and become more resistant to information manipulation.
 """
     )
 
-#col1, col2 = st.columns([8, 1])
+col1, col2 = st.columns([8, 1])
 
-#with col1:
+with col1:
     if st.button("⬅ Previous"):
         st.session_state.page = "Home"
         st.rerun()
