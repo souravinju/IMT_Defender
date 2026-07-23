@@ -364,7 +364,7 @@ def game_page():
     # ---------------------------
     # Read Questions
     # ---------------------------
-    questions = pd.read_excel("C:/Users/Sourav/Desktop/IMT_games/IMT.xlsx")
+    questions = pd.read_excel("IMT.xlsx")
 
     # ---------------------------
     # Session Variables
