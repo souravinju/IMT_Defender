@@ -61,9 +61,34 @@ if st.session_state.page == "Home":
             st.rerun()
 
 # ====================================================
-# SCENARIO PAGE 1
+# Threat Page
 # ====================================================
 elif st.session_state.page == "Scenario1":
+
+    st.title("🛡️ You will be bombarded with examples of several Manipulated Information 🛡️")
+
+    st.success(f"Welcome, **{st.session_state.name}**!")
+
+
+    col1, col2 = st.columns([8, 1])
+
+    with col1:
+        if st.button("⬅ Previous"):
+            st.session_state.page = "Home"
+            st.rerun()
+
+    with col2:
+        if st.button("Next ➜"):
+           st.session_state.page = "Scenario2"
+           st.rerun()
+
+
+
+
+# ====================================================
+# SCENARIO PAGE 1
+# ====================================================
+elif st.session_state.page == "Scenario2":
 
     st.title("🛡️ You will be bombarded with examples of several Manipulated Information")
 
@@ -157,13 +182,13 @@ and become more resistant to information manipulation.
 
     with col2:
         if st.button("Next ➜"):
-           st.session_state.page = "Scenario2"
+           st.session_state.page = "Scenario3"
            st.rerun()
 
 # ====================================================
 # SCENARIO PAGE2
 # ====================================================
-elif st.session_state.page == "Scenario2":
+elif st.session_state.page == "Scenario3":
 
     st.title("🛡️ You will be bombarded with examples of several Manipulated Information")
 
