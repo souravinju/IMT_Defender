@@ -525,7 +525,8 @@ def game_page():
 
                 st.rerun()
 
-
+if st.session_state.page == "Game":
+    game_page()
 
 
 
