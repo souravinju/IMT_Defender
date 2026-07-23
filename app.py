@@ -78,13 +78,15 @@ elif st.session_state.page == "Scenario":
 
     st.subheader("Please Check the Advertisement")
 
-    st.info(
-        """
-### Advertisement 
-##**"Creator --Authorize Company"**## 
-**"80% of dentists recommend BrightSmile toothpaste."**
+    st.markdown(
+    """
+## 📢 Advertisement
+
+**👤 Creator:** Authorized Company
+
+> "80% of dentists recommend BrightSmile toothpaste."
 """
-    )
+)
 
     st.success(
         """
