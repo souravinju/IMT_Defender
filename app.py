@@ -100,7 +100,7 @@ This advertisement is an example of
 ### 🔍 Why is this statement misleading?
 
 Although the statement may be based on a real survey,
-it omits important contextual information such as:
+it manipulates important contextual information such as:
 
 - How many dentists were surveyed?
 - Were they independent?
@@ -155,52 +155,38 @@ and become more resistant to information manipulation.
 
     with col2:
         if st.button("Next ➜"):
-            st.session_state.page = "Question1"
-            st.rerun()
+           st.session_state.page = "thankyou"
+           st.rerun()
 
-# ====================================================
-# QUESTION 1
-# ====================================================
-elif st.session_state.page == "Question1":
+# ----------------------------------------------------
+# THANK YOU PAGE
+# ----------------------------------------------------
+elif st.session_state.page == "thankyou":
 
-    st.title("Question 1")
+    st.balloons()
 
-    st.success(f"Participant: **{st.session_state.name}**")
+    st.title("🎉 Thank You!")
 
-    st.write(
-        "Read the following advertisement and identify the type of information manipulation."
-    )
+    st.success("You have completed the prototype successfully.")
 
-    st.info(
-        """
-**Advertisement**
+    st.markdown("## 📚 Happy Learning!")
 
-"Thousands of customers have switched to our bank because it offers the best interest rates."
-"""
-    )
+    st.write("""
+Thank you for participating in the **IMT Defender** prototype.
 
-    answer = st.radio(
-        "Which manipulation technique is used?",
-        [
-            "Exaggerated Truthful Information",
-            "Cherry Picking",
-            "Partial Information",
-            "Fabricated Information",
-            "Inconclusive Information",
-        ]
-    )
+This game is designed to help you identify different types of
+information manipulation and improve your critical thinking skills.
 
-    col1, col2 = st.columns(2)
+We hope you enjoyed your first mission.
 
-    with col1:
-        if st.button("⬅ Previous", key="back_q1"):
-            st.session_state.page = "Scenario"
-            st.rerun()
+See you again soon!
+""")
 
-    with col2:
-        if st.button("Submit"):
-            st.success(f"You selected: **{answer}**")
+    if st.button("🏠 Back to Home"):
 
+        st.session_state.page = "home"
+
+        st.rerun()
 
 
 
