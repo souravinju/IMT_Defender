@@ -30,74 +30,100 @@ if "difficulty" not in st.session_state:
 # ----------------------------------------------------
 # HOME PAGE
 # ----------------------------------------------------
-if st.session_state.page == "home":
+# -----------------------------
+# HOME PAGE
+# -----------------------------
+if st.session_state.page == "Home":
 
     st.title("🎮 IMT Defender")
+    st.header("Information Manipulation Training Game")
 
-    st.subheader("Information Manipulation Training Game")
+    name = st.text_input("Enter your Name")
 
-    st.write("Welcome to the prototype!")
-
-    st.session_state.name = st.text_input("Enter your Name")
-
-    st.session_state.difficulty = st.radio(
-        "I want to play that game",
+    consent = st.radio(
+        "I want to play this game",
         ["Yes", "No"]
     )
 
     if st.button("Start Game"):
 
-        st.session_state.page = "Scenario"
+        if name.strip() == "":
+            st.warning("Please enter your name.")
+        else:
+            st.session_state.name = name
+            st.session_state.consent = consent
+            st.session_state.page = "Scenario"
+            st.rerun()
 
-        st.rerun()
-
+# -----------------------------
+# SCENARIO PAGE
+# -----------------------------
 # -----------------------------
 # SCENARIO PAGE
 # -----------------------------
 elif st.session_state.page == "Scenario":
 
-    st.title("🛡️ Learning Example")
+    # Get name entered on first page
+    participant = st.session_state.get("name", "Participant")
 
-    st.subheader("Advertisement")
+    st.title("🛡️ IMT Learning Module")
+
+    st.success(f"Welcome, **{participant}**! 👋")
+
+    st.write("""
+Before you begin the game, you will learn how to identify
+different types of information manipulation.
+    """)
+
+    st.divider()
+
+    st.subheader("Example Advertisement")
 
     st.info("""
 **"80% of dentists recommend BrightSmile toothpaste."**
 """)
 
     st.success("""
-## ✅ Classification: Exaggerated Truthful Information
+### ✅ Classification: Exaggerated Truthful Information
 
-This advertisement is an example of **Exaggerated Truthful Information**.
+This advertisement is classified as **Exaggerated Truthful Information**.
 """)
 
     st.markdown("""
 ### 🔍 Why is this statement misleading?
 
-Although the statement may be based on a real survey,
-it omits important contextual information such as:
+Although the claim may be factually correct, it exaggerates the
+strength of the evidence by omitting important context.
 
-- How many dentists were surveyed?
-- Were they independent?
-- Was the survey scientifically conducted?
-- What exactly were they asked?
+For example, it does not explain:
 
-Without this context, consumers may believe the product
-is superior when the evidence does not necessarily support
-that conclusion.
+- How many dentists were surveyed.
+- Whether they were independent.
+- Whether the survey was scientifically conducted.
+- Whether they compared all toothpaste brands.
 
-Therefore, this is classified as **Exaggerated Truthful Information**.
+Consumers may therefore conclude that the toothpaste is objectively
+superior even though the evidence may not justify that conclusion.
 """)
 
     st.warning("""
-### 💡 Remember
+### 💡 What should you learn?
 
-Always ask:
+Whenever you encounter claims such as:
 
-✔ Where did this information come from?
+- "90% of experts recommend..."
+- "Clinically proven..."
+- "Most doctors agree..."
 
-✔ Is any important context missing?
+Ask yourself:
 
-✔ Does the evidence justify the claim?
+✔ What evidence supports the claim?
+
+✔ Is important context missing?
+
+✔ Does the evidence justify the conclusion?
+
+These questions will help you recognize **Exaggerated Truthful Information**.
 """)
 
     col1, col2 = st.columns(2)
