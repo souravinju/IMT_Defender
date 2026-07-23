@@ -319,8 +319,18 @@ These questions will help you recognize
 and become more resistant to information manipulation.
 """
     )
+####Next Button 
+    col1, col2 = st.columns([8, 1])
 
+    with col1:
+        if st.button("⬅ Previous"):
+            st.session_state.page = "Home"
+            st.rerun()
 
+    with col2:
+        if st.button("Next ➜"):
+           st.session_state.page = "Scenario3"
+           st.rerun()
 
 
 
