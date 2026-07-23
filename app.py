@@ -100,19 +100,40 @@ elif st.session_state.page == "Scenario2":
 
     st.subheader("Please Check the Advertisement")
 
-    st.markdown(
-    """
-## 📢 Advertisement
+    st.markdown("""
+<div style="
+background:#f8f9fa;
+padding:20px;
+border-radius:12px;
+border:1px solid #dcdcdc;
+">
 
-**👤 Creator:** Authorized Company
+<!-- Layer 1 -->
+<h2>📢 Advertisement</h2>
+
+<!-- Layer 2 -->
+<p style="font-size:18px;">
+👤 <b>Creator:</b> Authorized Company
+</p>
+
+<!-- Layer 3 -->
+<div style="
+background:#FFF8DC;
+padding:18px;
+border-radius:10px;
+border-left:6px solid #FFA500;
+">
 
 <h3>🦷 BrightSmile Toothpaste</h3>
 
-<p style="font-size:22px; font-weight:bold;">
+<p style="font-size:22px;font-weight:bold;">
 "80% of dentists recommend BrightSmile toothpaste."
 </p>
-"""
-)
+
+</div>
+
+</div>
+""", unsafe_allow_html=True)
 
     st.success(
         """
