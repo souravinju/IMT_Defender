@@ -19,62 +19,84 @@ st.set_page_config(
 # Session Variables
 # ----------------------------------------------------
 if "page" not in st.session_state:
-    st.session_state.page = "home"
+    st.session_state.page = "Home"
 
 if "name" not in st.session_state:
     st.session_state.name = ""
 
-if "difficulty" not in st.session_state:
-    st.session_state.difficulty = "Easy"
+if "consent" not in st.session_state:
+    st.session_state.consent = "Yes"
 
-# ----------------------------------------------------
+# ====================================================
 # HOME PAGE
-# ----------------------------------------------------
-# -----------------------------
-# HOME PAGE
-# -----------------------------
+# ====================================================
 if st.session_state.page == "Home":
 
     st.title("🎮 IMT Defender")
     st.header("Information Manipulation Training Game")
 
-    name = st.text_input("Enter your Name")
+    st.write("Welcome to the prototype!")
+
+    name = st.text_input(
+        "Enter your Name",
+        value=st.session_state.name
+    )
 
     consent = st.radio(
         "I want to play this game",
-        ["Yes", "No"]
+        ["Yes", "No"],
+        index=0 if st.session_state.consent == "Yes" else 1
     )
 
     if st.button("Start Game"):
 
         if name.strip() == "":
             st.warning("Please enter your name.")
+        elif consent == "No":
+            st.warning("You must agree to play the game.")
         else:
             st.session_state.name = name
             st.session_state.consent = consent
             st.session_state.page = "Scenario"
             st.rerun()
 
-# -----------------------------
+# ====================================================
 # SCENARIO PAGE
-# -----------------------------
+# ====================================================
 elif st.session_state.page == "Scenario":
 
     st.title("🛡️ Learning Example")
 
+    st.success(f"Welcome, **{st.session_state.name}**! 👋")
+
+    st.write(
+        "Before starting the game, learn how to identify "
+        "**Exaggerated Truthful Information**."
+    )
+
+    st.divider()
+
     st.subheader("Advertisement")
 
-    st.info("""
-**"80% of dentists recommend BrightSmile toothpaste."**
-""")
+    st.info(
+        """
+### Advertisement
 
-    st.success("""
+**"80% of dentists recommend BrightSmile toothpaste."**
+"""
+    )
+
+    st.success(
+        """
 ## ✅ Classification: Exaggerated Truthful Information
 
-This advertisement is an example of **Exaggerated Truthful Information**.
-""")
+This advertisement is an example of
+**Exaggerated Truthful Information**.
+"""
+    )
 
-    st.markdown("""
+    st.markdown(
+        """
 ### 🔍 Why is this statement misleading?
 
 Although the statement may be based on a real survey,
@@ -84,25 +106,45 @@ it omits important contextual information such as:
 - Were they independent?
 - Was the survey scientifically conducted?
 - What exactly were they asked?
+- Was the survey sponsored by the manufacturer?
 
-Without this context, consumers may believe the product
-is superior when the evidence does not necessarily support
-that conclusion.
+Without this information, consumers may incorrectly conclude
+that the toothpaste is objectively superior.
 
-Therefore, this is classified as **Exaggerated Truthful Information**.
-""")
+The claim appears truthful, but it exaggerates the strength of
+the evidence by omitting important context.
 
-    st.warning("""
-### 💡 Remember
+Therefore, according to the Information Manipulation Theory (IMT),
+this message is classified as:
 
-Always ask:
+## **Exaggerated Truthful Information**
+"""
+    )
+
+    st.warning(
+        """
+### 💡 What should you learn?
+
+Whenever you encounter statements such as:
+
+- "90% of experts recommend..."
+- "Clinically proven..."
+- "Most doctors recommend..."
+- "Number 1 recommended brand..."
+
+Ask yourself:
 
 ✔ Where did this information come from?
 
-✔ Is any important context missing?
+✔ Is important context missing?
 
-✔ Does the evidence justify the claim?
-""")
+✔ Does the evidence really justify the claim?
+
+These questions will help you recognize
+**Exaggerated Truthful Information**
+and become more resistant to information manipulation.
+"""
+    )
 
     col1, col2 = st.columns(2)
 
@@ -115,6 +157,49 @@ Always ask:
         if st.button("Next ➜"):
             st.session_state.page = "Question1"
             st.rerun()
+
+# ====================================================
+# QUESTION 1
+# ====================================================
+elif st.session_state.page == "Question1":
+
+    st.title("Question 1")
+
+    st.success(f"Participant: **{st.session_state.name}**")
+
+    st.write(
+        "Read the following advertisement and identify the type of information manipulation."
+    )
+
+    st.info(
+        """
+**Advertisement**
+
+"Thousands of customers have switched to our bank because it offers the best interest rates."
+"""
+    )
+
+    answer = st.radio(
+        "Which manipulation technique is used?",
+        [
+            "Exaggerated Truthful Information",
+            "Cherry Picking",
+            "Partial Information",
+            "Fabricated Information",
+            "Inconclusive Information",
+        ]
+    )
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        if st.button("⬅ Previous", key="back_q1"):
+            st.session_state.page = "Scenario"
+            st.rerun()
+
+    with col2:
+        if st.button("Submit"):
+            st.success(f"You selected: **{answer}**")
 
 
 
