@@ -87,12 +87,12 @@ elif st.session_state.page == "Scenario1":
 # ====================================================
 elif st.session_state.page == "Scenario2":
 
-    st.title("🛡️ You will be bombarded with examples of several Manipulated Information")
+##    st.title("🛡️ You will be bombarded with examples of several Manipulated Information")
 
-    st.success(f"Welcome, **{st.session_state.name}**!")
+##    st.success(f"Welcome, **{st.session_state.name}**!")
 
     st.write(
-        "Before starting the game, learn how to identify "
+        "Before starting the game, learn how to identify"
         "**Exaggerated Truthful Information**. Because The information may be truthful but out of context,but it is deceptive becuase it can be misleading and resembling the product as superior"
     )
 
