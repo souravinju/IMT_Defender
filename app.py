@@ -64,11 +64,8 @@ if st.session_state.page == "Home":
 # Threat Page
 # ====================================================
 elif st.session_state.page == "Scenario1":
-
-    st.title("🛡️ You will be bombarded with examples of several Manipulated Information 🛡️")
-
     st.success(f"Welcome, **{st.session_state.name}**!")
-
+    st.title("🛡️ You will be bombarded with examples of several Manipulated Information 🛡️")
 
     col1, col2 = st.columns([8, 1])
 
