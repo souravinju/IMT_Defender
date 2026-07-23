@@ -146,7 +146,7 @@ and become more resistant to information manipulation.
 """
     )
 
-    col1, col2 = st.columns(2)
+    col1, col2 = st.columns([8, 1])
 
     with col1:
         if st.button("⬅ Previous"):
@@ -154,7 +154,7 @@ and become more resistant to information manipulation.
             st.rerun()
 
     with col2:
-        if st.button("Next ➜", use_container_width=True):
+        if st.button("Next ➜"):
            st.session_state.page = "thankyou"
            st.rerun()
 
