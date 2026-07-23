@@ -320,52 +320,184 @@ and become more resistant to information manipulation.
 """
     )
 
-    col1, col2 = st.columns([8, 1])
+col1, col2 = st.columns([8, 1])
 
-    with col1:
-        if st.button("⬅ Previous"):
-            st.session_state.page = "Home"
+with col1:
+    if st.button("⬅ Previous"):
+        st.session_state.page = "Home"
+        st.rerun()
+
+with col2:
+    if st.button("🎮 Let's Play!"):
+        st.session_state.page = "game"
+        st.rerun()
+
+
+# ----------------------------------------------------
+# Play Game
+# ----------------------------------------------------
+def game_page():
+
+    import pandas as pd
+
+    # Read Excel
+    questions = pd.read_excel("C:Users/Sourav/Desktop/IMT_games/IMT.xlsx")
+
+    # Session variables
+    if "question_no" not in st.session_state:
+        st.session_state.question_no = 0
+
+    if "score" not in st.session_state:
+        st.session_state.score = 0
+
+    if "submitted" not in st.session_state:
+        st.session_state.submitted = False
+
+    # Game finished
+    if st.session_state.question_no >= len(questions):
+
+        st.balloons()
+
+        st.title("🎉 Congratulations!")
+
+        st.success("You have completed the game.")
+
+        accuracy = (st.session_state.score / len(questions)) * 100
+
+        st.metric("Correct Answers", st.session_state.score)
+        st.metric("Accuracy", f"{accuracy:.1f}%")
+
+        if st.button("🏠 Back to Home"):
+
+            st.session_state.page = "home"
+
+            st.session_state.question_no = 0
+            st.session_state.score = 0
+            st.session_state.submitted = False
+
             st.rerun()
 
-    with col2:
+        return
+
+    q = questions.iloc[st.session_state.question_no]
+
+    st.markdown(
+        "<h2 style='text-align:center;'>🎮 Let's Play! Can You Spot the Manipulation?</h2>",
+        unsafe_allow_html=True,
+    )
+
+    st.write(f"### Question {st.session_state.question_no+1} of {len(questions)}")
+
+    st.progress((st.session_state.question_no + 1) / len(questions))
+
+    st.divider()
+
+    st.write("### 📢 Advertisement")
+
+    st.write(f"**Creator:** {q['Creator']}")
+
+    st.info(q["Message"])
+
+    answer = st.radio(
+        "Select the correct manipulation",
+        [
+            q["Option1"],
+            q["Option2"],
+            q["Option3"],
+            q["Option4"],
+        ],
+    )
+
+    if not st.session_state.submitted:
+
+        if st.button("Submit"):
+
+            st.session_state.submitted = True
+
+            if answer == q["Correct_Answer"]:
+
+                st.success("✅ Correct!")
+
+                st.session_state.score += 1
+
+            else:
+
+                st.error("❌ Incorrect")
+
+                st.write("Correct Answer:")
+
+                st.write(q["Correct_Answer"])
+
+            st.info(q["Explanation"])
+
+            st.rerun()
+
+    else:
+
+        if answer == q["Correct_Answer"]:
+
+            st.success("✅ Correct!")
+
+        else:
+
+            st.error("❌ Incorrect")
+
+            st.write("Correct Answer:")
+
+            st.write(q["Correct_Answer"])
+
+        st.info(q["Explanation"])
+
         if st.button("Next ➜"):
-           st.session_state.page = "thankyou"
-           st.rerun()
+
+            st.session_state.question_no += 1
+            st.session_state.submitted = False
+
+            st.rerun()
 
 
+col1, col2 = st.columns([8, 1])
 
+with col1:
+    if st.button("⬅ Previous"):
+        st.session_state.page = "Home"
+        st.rerun()
 
+with col2:
+    if st.button("🎮 Let's Play!"):
+        st.session_state.page = "thankyou"
+        st.rerun()
 
 # ----------------------------------------------------
 # THANK YOU PAGE
 # ----------------------------------------------------
-elif st.session_state.page == "thankyou":
+##elif st.session_state.page == "thankyou":
 
 ###    st.balloons()
 
-    st.title("Thank You!")
+##    st.title("Thank You!")
 
-    st.success("You have completed the prototype successfully.")
+##    st.success("You have completed the prototype successfully.")
 
-    st.markdown("## Happy Learning!")
+##    st.markdown("## Happy Learning!")
 
-    st.write("""
-Thank you for participating in the **IMT Defender** prototype.
+##    st.write("""
+##Thank you for participating in the **IMT Defender** prototype.
 
-This game is designed to help you identify different types of
-information manipulation and improve your critical thinking skills.
+##This game is designed to help you identify different types of
+##information manipulation and improve your critical thinking skills.
 
-We hope you enjoyed your first mission.
+##We hope you enjoyed your first mission.
 
-See you again soon!
-""")
+##See you again soon!
+##""")
 
-    if st.button("Back to Home"):
+##    if st.button("Back to Home"):
 
-       st.session_state.clear()      # Clears all session variables
-       st.session_state.page = "Home"
+##       st.session_state.clear()      # Clears all session variables
+##       st.session_state.page = "Home"
 
-       st.rerun()
+##       st.rerun()
 
 # ====================================================
 # SCENARIO PAGE2
