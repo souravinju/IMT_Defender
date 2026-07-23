@@ -57,13 +57,13 @@ if st.session_state.page == "Home":
         else:
             st.session_state.name = name
             st.session_state.consent = consent
-            st.session_state.page = "Scenario"
+            st.session_state.page = "Scenario1"
             st.rerun()
 
 # ====================================================
-# SCENARIO PAGE
+# SCENARIO PAGE 1
 # ====================================================
-elif st.session_state.page == "Scenario":
+elif st.session_state.page == "Scenario1":
 
     st.title("🛡️ You will be bombarded with examples of several Manipulated Information")
 
@@ -157,8 +157,113 @@ and become more resistant to information manipulation.
 
     with col2:
         if st.button("Next ➜"):
+           st.session_state.page = "Scenario2"
+           st.rerun()
+
+# ====================================================
+# SCENARIO PAGE2
+# ====================================================
+elif st.session_state.page == "Scenario2":
+
+    st.title("🛡️ You will be bombarded with examples of several Manipulated Information")
+
+    st.success(f"Welcome, **{st.session_state.name}**!")
+
+    st.write(
+        "Before starting the game, learn how to identify "
+        "**Consequential Disinformation**. Because The information may be truthful but out of context,but it is deceptive becuase it can be misleading and resembling the product as superior"
+    )
+
+    st.divider()
+
+    st.subheader("Please Check the Advertisement")
+
+    st.markdown(
+    """
+## 📢 Advertisement
+
+**👤 Creator:** Authorized Company
+
+**"80% of dentists recommend BrightSmile toothpaste."**
+"""
+)
+
+    st.success(
+        """
+## ✅ Classification: Exaggerated Truthful Information
+
+This advertisement is an example of
+**Exaggerated Truthful Information**.
+"""
+    )
+
+    st.markdown(
+        """
+### 🔍 Why is this statement misleading?
+
+Although the statement may be based on a real survey,
+it manipulates important contextual information such as:
+
+- How many dentists were surveyed?
+- Were they independent?
+- Was the survey scientifically conducted?
+- What exactly were they asked?
+- Was the survey sponsored by the manufacturer?
+
+Without this information, consumers may incorrectly conclude
+that the toothpaste is objectively superior.
+
+The claim appears truthful, but it exaggerates the strength of
+the evidence by omitting important context.
+
+Therefore, according to the Information Manipulation Theory (IMT),
+this message is classified as:
+
+## **Exaggerated Truthful Information**
+"""
+    )
+
+    st.warning(
+        """
+### 💡 What should you learn?
+
+Whenever you encounter statements such as:
+
+- "90% of experts recommend..."
+- "Clinically proven..."
+- "Most doctors recommend..."
+- "Number 1 recommended brand..."
+
+Ask yourself:
+
+✔ Where did this information come from?
+
+✔ Is important context missing?
+
+✔ Does the evidence really justify the claim?
+
+These questions will help you recognize
+**Exaggerated Truthful Information**
+and become more resistant to information manipulation.
+"""
+    )
+
+    col1, col2 = st.columns([8, 1])
+
+    with col1:
+        if st.button("⬅ Previous"):
+            st.session_state.page = "Home"
+            st.rerun()
+
+    with col2:
+        if st.button("Next ➜"):
            st.session_state.page = "thankyou"
            st.rerun()
+
+
+
+
+
 
 # ----------------------------------------------------
 # THANK YOU PAGE
@@ -191,7 +296,9 @@ See you again soon!
 
        st.rerun()
 
-
+# ====================================================
+# SCENARIO PAGE2
+# ====================================================
 
 
 
