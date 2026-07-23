@@ -51,107 +51,66 @@ if st.session_state.page == "home":
 
         st.rerun()
 
-# ----------------------------------------------------
-# QUESTION PAGE
-# ----------------------------------------------------
-# ----------------------------------------------------
+# -----------------------------
 # SCENARIO PAGE
-# ----------------------------------------------------
+# -----------------------------
 elif st.session_state.page == "Scenario":
 
-    st.title("🛡️ Learn to Detect Information Manipulation")
+    st.title("🛡️ Learning Example")
 
-    st.warning("""
-### ⚠️ Threat
+    st.subheader("Advertisement")
 
-In everyday life, advertisements, social media posts, and online reviews often contain
-manipulated information that can influence your decisions without you realizing it.
-During this training, you will learn how to recognize these manipulation techniques
-and become more resistant to them.
-""")
-
-    st.divider()
-
-st.subheader("Example")
-
-st.info("""
-### Advertisement
-
+    st.info("""
 **"80% of dentists recommend BrightSmile toothpaste."**
 """)
 
-st.success("""
+    st.success("""
 ## ✅ Classification: Exaggerated Truthful Information
 
 This advertisement is an example of **Exaggerated Truthful Information**.
-
-The claim may be **factually true**, but it exaggerates its persuasive impact by
-omitting important contextual information that consumers need to properly evaluate
-the message.
 """)
 
-st.markdown("""
+    st.markdown("""
 ### 🔍 Why is this statement misleading?
 
-Although the statement may be based on a real survey, it does **not provide enough
-information** for consumers to judge whether the claim is meaningful.
+Although the statement may be based on a real survey,
+it omits important contextual information such as:
 
-Important information is missing, such as:
+- How many dentists were surveyed?
+- Were they independent?
+- Was the survey scientifically conducted?
+- What exactly were they asked?
 
-- How many dentists participated in the survey?
-- Were the dentists independent or sponsored by the company?
-- Were they asked to recommend **this toothpaste over all competitors**, or simply whether they would recommend it?
-- Was the survey scientifically designed and representative?
+Without this context, consumers may believe the product
+is superior when the evidence does not necessarily support
+that conclusion.
 
-Because these details are omitted, consumers may incorrectly conclude that the
-toothpaste is objectively superior. The advertisement therefore **exaggerates the
-strength of the evidence while remaining factually plausible**, making it an example
-of **Exaggerated Truthful Information**.
+Therefore, this is classified as **Exaggerated Truthful Information**.
 """)
 
-st.warning("""
-### 💡 What should you learn?
+    st.warning("""
+### 💡 Remember
 
-When you encounter persuasive claims such as **"most doctors recommend,"**
-**"clinically proven,"** or **"90% of experts agree,"** always ask:
+Always ask:
 
-✔ What evidence supports this claim?  
-✔ Is important context missing?  
-✔ Does the evidence really justify the conclusion?
+✔ Where did this information come from?
 
-By asking these questions, you can better recognize **Exaggerated Truthful Information**
-and become more resistant to information manipulation.
+✔ Is any important context missing?
+
+✔ Does the evidence justify the claim?
 """)
 
-if st.button("Next ➜"):
-    st.session_state.page = "Question1"
-    st.rerun()
+    col1, col2 = st.columns(2)
 
-# ----------------------------------------------------
-# QUESTION 2
-# ----------------------------------------------------
-elif st.session_state.page == "question2":
+    with col1:
+        if st.button("⬅ Previous"):
+            st.session_state.page = "Home"
+            st.rerun()
 
-    st.title("Question 2 of 10")
-
-    st.info("""
-Breaking News!
-
-Scientists have discovered that drinking coffee
-will make everyone live 150 years.
-""")
-
-    st.radio(
-        "Choose the manipulation",
-        [
-            "Fabrication",
-            "Cherry Picking",
-            "Misleading Context",
-            "Exaggeration"
-        ]
-    )
-
-    st.button("Submit")
+    with col2:
+        if st.button("Next ➜"):
+            st.session_state.page = "Question1"
+            st.rerun()
 
 
 
