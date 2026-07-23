@@ -184,9 +184,10 @@ See you again soon!
 
     if st.button("🏠 Back to Home"):
 
-        st.session_state.page = "IMT Defender"
+       st.session_state.clear()      # Clears all session variables
+       st.session_state.page = "Home"
 
-        st.rerun()
+       st.rerun()
 
 
 
