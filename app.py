@@ -65,13 +65,13 @@ if st.session_state.page == "Home":
 # ====================================================
 elif st.session_state.page == "Scenario":
 
-    st.title("🛡️ Learning Example")
+    st.title("🛡️ You will be bombarded with examples of several Manipulated Information")
 
-    st.success(f"Welcome, **{st.session_state.name}**! 👋")
+    st.success(f"Welcome, **{st.session_state.name}**!")
 
     st.write(
         "Before starting the game, learn how to identify "
-        "**Exaggerated Truthful Information**."
+        "**Exaggerated Truthful Information**. Because The information may be truthful but out of context that incite misleading to consumer"
     )
 
     st.divider()
