@@ -80,8 +80,8 @@ elif st.session_state.page == "Scenario":
 
     st.info(
         """
-### Advertisement ###
-**"Company - Authorised"** 
+### Advertisement 
+##**"Creator --Authorize Company"**## 
 **"80% of dentists recommend BrightSmile toothpaste."**
 """
     )
