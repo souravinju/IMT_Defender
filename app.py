@@ -328,7 +328,7 @@ and become more resistant to information manipulation.
             st.rerun()
 
     with col2:
-       if st.button("Let's Play!"):
+       if st.button("Next ➜"):
         st.session_state.page = "LaunchGame"
         st.rerun()
 
