@@ -84,7 +84,7 @@ elif st.session_state.page == "Scenario":
 
 **👤 Creator:** Authorized Company
 
-> "80% of dentists recommend BrightSmile toothpaste."
+**"80% of dentists recommend BrightSmile toothpaste."**
 """
 )
 
