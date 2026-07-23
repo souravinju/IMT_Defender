@@ -106,7 +106,11 @@ elif st.session_state.page == "Scenario2":
 
 **👤 Creator:** Authorized Company
 
-**"80% of dentists recommend BrightSmile toothpaste."**
+<h3>🦷 BrightSmile Toothpaste</h3>
+
+<p style="font-size:22px; font-weight:bold;">
+"80% of dentists recommend BrightSmile toothpaste."
+</p>
 """
 )
 
