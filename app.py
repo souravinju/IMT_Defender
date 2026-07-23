@@ -71,7 +71,7 @@ elif st.session_state.page == "Scenario":
 
     st.write(
         "Before starting the game, learn how to identify "
-        "**Exaggerated Truthful Information**. Because The information may be truthful but out of context that incite misleading to consumer"
+        "**Exaggerated Truthful Information**. Because The information may be truthful but out of context,but it is deceptive becuase it can be misleading and resembling as superior product "
     )
 
     st.divider()
