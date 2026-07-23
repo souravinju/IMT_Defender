@@ -58,72 +58,50 @@ if st.session_state.page == "Home":
 # -----------------------------
 # SCENARIO PAGE
 # -----------------------------
-# -----------------------------
-# SCENARIO PAGE
-# -----------------------------
 elif st.session_state.page == "Scenario":
 
-    # Get name entered on first page
-    participant = st.session_state.get("name", "Participant")
+    st.title("🛡️ Learning Example")
 
-    st.title("🛡️ IMT Learning Module")
-
-    st.success(f"Welcome, **{participant}**! 👋")
-
-    st.write("""
-Before you begin the game, you will learn how to identify
-different types of information manipulation.
-    """)
-
-    st.divider()
-
-    st.subheader("Example Advertisement")
+    st.subheader("Advertisement")
 
     st.info("""
 **"80% of dentists recommend BrightSmile toothpaste."**
 """)
 
     st.success("""
-### ✅ Classification: Exaggerated Truthful Information
+## ✅ Classification: Exaggerated Truthful Information
 
-This advertisement is classified as **Exaggerated Truthful Information**.
+This advertisement is an example of **Exaggerated Truthful Information**.
 """)
 
     st.markdown("""
 ### 🔍 Why is this statement misleading?
 
-Although the claim may be factually correct, it exaggerates the
-strength of the evidence by omitting important context.
+Although the statement may be based on a real survey,
+it omits important contextual information such as:
 
-For example, it does not explain:
+- How many dentists were surveyed?
+- Were they independent?
+- Was the survey scientifically conducted?
+- What exactly were they asked?
 
-- How many dentists were surveyed.
-- Whether they were independent.
-- Whether the survey was scientifically conducted.
-- Whether they compared all toothpaste brands.
+Without this context, consumers may believe the product
+is superior when the evidence does not necessarily support
+that conclusion.
 
-Consumers may therefore conclude that the toothpaste is objectively
-superior even though the evidence may not justify that conclusion.
+Therefore, this is classified as **Exaggerated Truthful Information**.
 """)
 
     st.warning("""
-### 💡 What should you learn?
+### 💡 Remember
 
-Whenever you encounter claims such as:
+Always ask:
 
-- "90% of experts recommend..."
-- "Clinically proven..."
-- "Most doctors agree..."
+✔ Where did this information come from?
 
-Ask yourself:
+✔ Is any important context missing?
 
-✔ What evidence supports the claim?
-
-✔ Is important context missing?
-
-✔ Does the evidence justify the conclusion?
-
-These questions will help you recognize **Exaggerated Truthful Information**.
+✔ Does the evidence justify the claim?
 """)
 
     col1, col2 = st.columns(2)
