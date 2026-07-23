@@ -163,13 +163,13 @@ and become more resistant to information manipulation.
 # ----------------------------------------------------
 elif st.session_state.page == "thankyou":
 
-    st.balloons()
+###    st.balloons()
 
-    st.title("🎉 Thank You!")
+    st.title("Thank You!")
 
     st.success("You have completed the prototype successfully.")
 
-    st.markdown("## 📚 Happy Learning!")
+    st.markdown("## Happy Learning!")
 
     st.write("""
 Thank you for participating in the **IMT Defender** prototype.
