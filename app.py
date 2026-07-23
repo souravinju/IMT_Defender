@@ -327,12 +327,29 @@ and become more resistant to information manipulation.
             st.session_state.page = "Home"
             st.rerun()
 
-    with col2:
-        if st.button("Next ➜"):
-           st.session_state.page = "Scenario3"
-           st.rerun()
+with col2:
+    if st.button("Let's Play!"):
+        st.session_state.page = "LaunchGame"
+        st.rerun()
 
+if st.session_state.page == "LaunchGame":
 
+    st.title("🎮 Ready to Play?")
+
+    st.write("""
+    You have completed the learning section.
+
+    Now you will answer several questions based on
+    Information Manipulation Theory.
+
+    Read each advertisement carefully before selecting your answer.
+
+    Good luck!
+    """)
+
+    if st.button("▶ Start Game"):
+        st.session_state.page = "Game"
+        st.rerun()
 
 
 
