@@ -352,8 +352,178 @@ if st.session_state.page == "LaunchGame":
         st.rerun()
 
 
+# ====================================================
+# GAME PAGE
+# ====================================================
+import streamlit as st
+import pandas as pd
 
 
+def game_page():
+
+    # ---------------------------
+    # Read Questions
+    # ---------------------------
+    questions = pd.read_excel("C:/Users/Sourav/Desktop/IMT_games/IMT.xlsx")
+
+    # ---------------------------
+    # Session Variables
+    # ---------------------------
+    if "question_no" not in st.session_state:
+        st.session_state.question_no = 0
+
+    if "score" not in st.session_state:
+        st.session_state.score = 0
+
+    if "submitted" not in st.session_state:
+        st.session_state.submitted = False
+
+    # ---------------------------
+    # Finish Game
+    # ---------------------------
+    if st.session_state.question_no >= len(questions):
+
+        st.balloons()
+
+        st.title("🎉 Congratulations!")
+
+        st.success("You have completed the IMT Defender Game.")
+
+        accuracy = (st.session_state.score / len(questions)) * 100
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+            st.metric("Correct Answers", st.session_state.score)
+
+        with col2:
+            st.metric("Accuracy", f"{accuracy:.1f}%")
+
+        st.divider()
+
+        if st.button("🏠 Back to Home"):
+
+            st.session_state.page = "Home"
+
+            st.session_state.question_no = 0
+            st.session_state.score = 0
+            st.session_state.submitted = False
+
+            st.rerun()
+
+        return
+
+    # ---------------------------
+    # Current Question
+    # ---------------------------
+    q = questions.iloc[st.session_state.question_no]
+
+    st.title("🎮 IMT Defender")
+
+    st.subheader("Can You Identify the Manipulation?")
+
+    st.progress((st.session_state.question_no + 1) / len(questions))
+
+    st.write(
+        f"### Question {st.session_state.question_no + 1} of {len(questions)}"
+    )
+
+    st.divider()
+
+    # ---------------------------
+    # Advertisement
+    # ---------------------------
+
+    st.markdown("## 📢 Advertisement")
+
+    st.write(f"**Advertisement Type:** {q['Type']}")
+
+    st.write(f"**Creator:** {q['Creator']}")
+
+    st.info(q["Message"])
+
+    st.divider()
+
+    # ---------------------------
+    # Answer Options
+    # ---------------------------
+
+    answer = st.radio(
+        "Which type of Information Manipulation is this?",
+        [
+            q["Option1"],
+            q["Option2"],
+            q["Option3"],
+            q["Option4"],
+        ],
+        key=f"question_{st.session_state.question_no}"
+    )
+
+    # ---------------------------
+    # Submit
+    # ---------------------------
+
+    if not st.session_state.submitted:
+
+        if st.button("Submit Answer"):
+
+            st.session_state.submitted = True
+
+            if answer == q["Correct_Answer"]:
+
+                st.success("✅ Correct!")
+
+                st.session_state.score += 1
+
+            else:
+
+                st.error("❌ Incorrect")
+
+                st.write("### Correct Answer")
+
+                st.success(q["Correct_Answer"])
+
+            st.info(q["Explanation"])
+
+            st.rerun()
+
+    # ---------------------------
+    # After Submission
+    # ---------------------------
+
+    else:
+
+        if answer == q["Correct_Answer"]:
+
+            st.success("✅ Correct!")
+
+        else:
+
+            st.error("❌ Incorrect")
+
+            st.write("### Correct Answer")
+
+            st.success(q["Correct_Answer"])
+
+        st.info(q["Explanation"])
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+
+            st.metric(
+                "Current Score",
+                f"{st.session_state.score}/{len(questions)}"
+            )
+
+        with col2:
+
+            if st.button("Next Question ➜"):
+
+                st.session_state.question_no += 1
+                st.session_state.submitted = False
+
+                st.rerun()
 
 
 
