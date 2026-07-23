@@ -347,7 +347,7 @@ if st.session_state.page == "LaunchGame":
     Good luck!
     """)
 
-    if st.button("Next ➜"):
+    if st.button("Lets Play"):
         st.session_state.page = "Game"
         st.rerun()
 
