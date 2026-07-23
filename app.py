@@ -98,7 +98,7 @@ elif st.session_state.page == "Scenario2":
 
     st.divider()
 
-    st.subheader("Please Check the Advertisement")
+##    st.subheader("Please Check the Advertisement")
 
     st.markdown("""
 <div style="
@@ -127,7 +127,7 @@ border-left:6px solid #FFA500;
 <h3>🦷 BrightSmile Toothpaste</h3>
 
 <p style="font-size:22px;font-weight:bold;">
-"80% of dentists recommend BrightSmile toothpaste."
+80% of dentists recommend BrightSmile toothpaste
 </p>
 
 </div>
@@ -212,35 +212,60 @@ and become more resistant to information manipulation.
 # ====================================================
 elif st.session_state.page == "Scenario3":
 
-    st.title("🛡️ You will be bombarded with examples of several Manipulated Information")
+###    st.title("🛡️ You will be bombarded with examples of several Manipulated Information")
 
-    st.success(f"Welcome, **{st.session_state.name}**!")
+###    st.success(f"Welcome, **{st.session_state.name}**!")
 
     st.write(
         "Before starting the game, learn how to identify "
-        "**Consequential Disinformation**. Because The information may be truthful but out of context,but it is deceptive becuase it can be misleading and resembling the product as superior"
+        "**Consequential Disinformation**."
     )
 
     st.divider()
 
     st.subheader("Please Check the Advertisement")
 
-    st.markdown(
-    """
-## 📢 Advertisement
+    st.markdown("""
+<div style="
+background:#f8f9fa;
+padding:20px;
+border-radius:12px;
+border:1px solid #dcdcdc;
+">
 
-**👤 Creator:** Authorized Company
+<!-- Layer 1 -->
+<h2>📢 Advertisement</h2>
 
-**"80% of dentists recommend BrightSmile toothpaste."**
-"""
-)
+<!-- Layer 2 -->
+<p style="font-size:18px;">
+👤 <b>Creator:</b> Authorized Company
+</p>
+
+<!-- Layer 3 -->
+<div style="
+background:#FFF8DC;
+padding:18px;
+border-radius:10px;
+border-left:6px solid #FFA500;
+">
+
+<h3>🦷 Weight loss product</h3>
+
+<p style="font-size:22px;font-weight:bold;">
+80% of dentists recommend BrightSmile toothpaste
+</p>
+
+</div>
+
+</div>
+""", unsafe_allow_html=True)
 
     st.success(
         """
-## ✅ Classification: Exaggerated Truthful Information
+## ✅ Classification: Consequential Disinformation
 
 This advertisement is an example of
-**Exaggerated Truthful Information**.
+**Consequential Disinformation**.
 """
     )
 
@@ -304,9 +329,8 @@ and become more resistant to information manipulation.
 
     with col2:
         if st.button("Next ➜"):
-           st.session_state.page = "thankyou"
+           st.session_state.page = "Scenario3"
            st.rerun()
-
 
 
 
