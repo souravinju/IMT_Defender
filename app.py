@@ -45,7 +45,7 @@ if st.session_state.page == "home":
         ["Yes", "No"]
     )
 
-    if st.button("🚀 Start Game"):
+    if st.button("Start Game"):
 
         st.session_state.page = "Scenario"
 
@@ -54,64 +54,78 @@ if st.session_state.page == "home":
 # ----------------------------------------------------
 # QUESTION PAGE
 # ----------------------------------------------------
+# ----------------------------------------------------
+# SCENARIO PAGE
+# ----------------------------------------------------
 elif st.session_state.page == "Scenario":
 
-    st.title("Scenario")
+    st.title("🛡️ Learn to Detect Information Manipulation")
 
-    st.write("### Read the following post")
+    st.warning("""
+### ⚠️ Threat
 
-    st.info("""
-Only one study found that Product X is harmful,
-while dozens of studies prove it is completely safe.
+In everyday life, advertisements, social media posts, and online reviews often contain
+manipulated information that can influence your decisions without you realizing it.
+During this training, you will learn how to recognize these manipulation techniques
+and become more resistant to them.
 """)
 
-    answer = st.radio(
-        "Which manipulation is used?",
-        [
-            "Cherry Picking",
-            "Fabrication",
-            "Exaggeration",
-            "Misleading Context"
-        ]
-    )
+    st.divider()
 
-    if st.button("Submit"):
+st.subheader("Example")
 
-        st.session_state.answer = answer
+st.info("""
+### Advertisement
 
-        st.session_state.page = "feedback"
-
-        st.rerun()
-
-# ----------------------------------------------------
-# FEEDBACK PAGE
-# ----------------------------------------------------
-elif st.session_state.page == "feedback":
-
-    st.title("Result")
-
-    if st.session_state.answer == "Cherry Picking":
-
-        st.success("✅ Correct!")
-
-        st.write("""
-This is **Cherry Picking** because only one side of the
-evidence is presented while contradictory evidence is ignored.
+**"80% of dentists recommend BrightSmile toothpaste."**
 """)
 
-    else:
+st.success("""
+## ✅ Classification: Exaggerated Truthful Information
 
-        st.error("❌ Incorrect")
+This advertisement is an example of **Exaggerated Truthful Information**.
 
-        st.write("""
-Correct answer: **Cherry Picking**
+The claim may be **factually true**, but it exaggerates its persuasive impact by
+omitting important contextual information that consumers need to properly evaluate
+the message.
 """)
 
-    if st.button("➡ Next Question"):
+st.markdown("""
+### 🔍 Why is this statement misleading?
 
-        st.session_state.page = "question2"
+Although the statement may be based on a real survey, it does **not provide enough
+information** for consumers to judge whether the claim is meaningful.
 
-        st.rerun()
+Important information is missing, such as:
+
+- How many dentists participated in the survey?
+- Were the dentists independent or sponsored by the company?
+- Were they asked to recommend **this toothpaste over all competitors**, or simply whether they would recommend it?
+- Was the survey scientifically designed and representative?
+
+Because these details are omitted, consumers may incorrectly conclude that the
+toothpaste is objectively superior. The advertisement therefore **exaggerates the
+strength of the evidence while remaining factually plausible**, making it an example
+of **Exaggerated Truthful Information**.
+""")
+
+st.warning("""
+### 💡 What should you learn?
+
+When you encounter persuasive claims such as **"most doctors recommend,"**
+**"clinically proven,"** or **"90% of experts agree,"** always ask:
+
+✔ What evidence supports this claim?  
+✔ Is important context missing?  
+✔ Does the evidence really justify the conclusion?
+
+By asking these questions, you can better recognize **Exaggerated Truthful Information**
+and become more resistant to information manipulation.
+""")
+
+if st.button("Next ➜"):
+    st.session_state.page = "Question1"
+    st.rerun()
 
 # ----------------------------------------------------
 # QUESTION 2
