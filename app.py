@@ -71,7 +71,7 @@ elif st.session_state.page == "Scenario":
 
     st.write(
         "Before starting the game, learn how to identify "
-        "**Exaggerated Truthful Information**. Because The information may be truthful but out of context,but it is deceptive becuase it can be misleading and resembling as superior product "
+        "**Exaggerated Truthful Information**. Because The information may be truthful but out of context,but it is deceptive becuase it can be misleading and resembling the product as superior"
     )
 
     st.divider()
@@ -80,8 +80,8 @@ elif st.session_state.page == "Scenario":
 
     st.info(
         """
-### Advertisement
-
+### Advertisement ###
+**"Company - Authorised"** 
 **"80% of dentists recommend BrightSmile toothpaste."**
 """
     )
