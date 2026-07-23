@@ -329,7 +329,7 @@ and become more resistant to information manipulation.
 
     with col2:
         if st.button("Next ➜"):
-           st.session_state.page = "Scenario3"
+           st.session_state.page = "thankyou"
            st.rerun()
 
 
