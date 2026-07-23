@@ -328,9 +328,31 @@ with col1:
         st.rerun()
 
 with col2:
-    if st.button("🎮 Let's Play!"):
-        st.session_state.page = "game"
+    if st.button("Next ➜"):
+        st.session_state.page = "Scenario4"
         st.rerun()
+
+elif st.session_state.page == "Scenario4":
+
+    st.title("🛡️ Scenario 4")
+    st.write("Before starting the game, learn one final example of manipulated information.")
+    st.divider()
+    st.subheader("📢 Advertisement")
+    st.info("Thousands of doctors recommend this herbal supplement for everyone.")
+    st.success("Classification: Fabricated Disinformation")
+    st.warning("Verify the source, check the evidence, and question broad claims.")
+
+    col1, col2 = st.columns([8,1])
+
+    with col1:
+        if st.button("⬅ Previous"):
+            st.session_state.page = "Scenario3"
+            st.rerun()
+
+    with col2:
+        if st.button("🎮 Let's Play!"):
+            st.session_state.page = "game"
+            st.rerun()
 
 
 # ----------------------------------------------------
@@ -341,7 +363,7 @@ def game_page():
     import pandas as pd
 
     # Read Excel
-    questions = pd.read_excel("C:Users/Sourav/Desktop/IMT_games/IMT.xlsx")
+    questions = pd.read_excel(r"C:\Users\Sourav\Desktop\IMT_games\IMT.xlsx")
 
     # Session variables
     if "question_no" not in st.session_state:
@@ -369,7 +391,7 @@ def game_page():
 
         if st.button("🏠 Back to Home"):
 
-            st.session_state.page = "home"
+            st.session_state.page = "Home"
 
             st.session_state.question_no = 0
             st.session_state.score = 0
@@ -456,17 +478,6 @@ def game_page():
             st.rerun()
 
 
-col1, col2 = st.columns([8, 1])
-
-with col1:
-    if st.button("⬅ Previous"):
-        st.session_state.page = "Home"
-        st.rerun()
-
-with col2:
-    if st.button("🎮 Let's Play!"):
-        st.session_state.page = "thankyou"
-        st.rerun()
 
 # ----------------------------------------------------
 # THANK YOU PAGE
@@ -515,3 +526,7 @@ with col2:
 
 
 
+
+
+elif st.session_state.page == "game":
+    game_page()
