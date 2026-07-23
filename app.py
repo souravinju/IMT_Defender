@@ -76,7 +76,7 @@ elif st.session_state.page == "Scenario":
 
     st.divider()
 
-    st.subheader("Advertisement")
+    st.subheader("Please Check the Advertisement")
 
     st.info(
         """
@@ -182,7 +182,7 @@ We hope you enjoyed your first mission.
 See you again soon!
 """)
 
-    if st.button("🏠 Back to Home"):
+    if st.button("Back to Home"):
 
        st.session_state.clear()      # Clears all session variables
        st.session_state.page = "Home"
