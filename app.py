@@ -154,7 +154,7 @@ and become more resistant to information manipulation.
             st.rerun()
 
     with col2:
-        if st.button("Next ➜"):
+        if st.button("Next ➜", use_container_width=True):
            st.session_state.page = "thankyou"
            st.rerun()
 
