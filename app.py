@@ -357,6 +357,7 @@ if st.session_state.page == "LaunchGame":
 # ====================================================
 import streamlit as st
 import pandas as pd
+# Game Page
 
 
 def game_page():
@@ -390,7 +391,7 @@ def game_page():
        st.title("🎉 Quiz Completed!")
        st.success("You have completed the IMT Defender Game.")
 
-       st.divider()
+    st.divider()
 
     # -------------------------
     # Gauge Image
@@ -496,6 +497,10 @@ def game_page():
 
     return
 
+###Call this game page
+
+if st.session_state.page == "Game":
+    game_page()
 
 
 
