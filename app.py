@@ -407,7 +407,7 @@ def game_page():
     # ---------------------------
     if st.session_state.question_no >= len(questions):
 
-        st.balloons()
+        ##st.balloons()
 
         accuracy = (st.session_state.score / len(questions)) * 100
 
