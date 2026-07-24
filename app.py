@@ -357,19 +357,38 @@ if st.session_state.page == "LaunchGame":
 # ====================================================
 import streamlit as st
 import pandas as pd
+import streamlit as st
+import pandas as pd
+import plotly.graph_objects as go
 # Game Page
+def credibility_gauge(score):
 
+    fig = go.Figure(go.Indicator(
+        mode="gauge+number",
+        value=score,
+        number={"suffix": "%"},
+        title={"text": "<b>Credibility Detection Score</b>"},
+        gauge={
+            "axis": {"range": [0, 100]},
+            "bar": {"color": "darkblue"},
+            "steps": [
+                {"range": [0, 40], "color": "#ff4d4d"},
+                {"range": [40, 70], "color": "#ffd54f"},
+                {"range": [70, 100], "color": "#66bb6a"},
+            ]
+        }
+    ))
+
+    fig.update_layout(height=350)
+
+    st.plotly_chart(fig, use_container_width=True)
 
 def game_page():
 
-    # ---------------------------
     # Read Questions
-    # ---------------------------
     questions = pd.read_excel("IMT.xlsx")
 
-    # ---------------------------
     # Session Variables
-    # ---------------------------
     if "question_no" not in st.session_state:
         st.session_state.question_no = 0
 
@@ -379,123 +398,127 @@ def game_page():
     if "submitted" not in st.session_state:
         st.session_state.submitted = False
 
-# ---------------------------
-# Finish Game
-# ---------------------------
+    # ===========================
+    # FINISH GAME
+    # ===========================
     if st.session_state.question_no >= len(questions):
 
-       st.balloons()
+        st.balloons()
 
-       accuracy = (st.session_state.score / len(questions)) * 100
+        accuracy = (st.session_state.score / len(questions)) * 100
 
-       st.title("🎉 Quiz Completed!")
-       st.success("You have completed the IMT Defender Game.")
+        st.title("🎉 Quiz Completed!")
+        st.success("You have completed the IMT Defender Game.")
 
-    st.divider()
+        st.divider()
 
-    # -------------------------
-    # Gauge Image
-    # -------------------------
-    col1, col2, col3 = st.columns([1,2,1])
+        # Dynamic Gauge
+        credibility_gauge(accuracy)
 
-    with col2:
-        st.image("gauge.png", width=320)
+        st.markdown(
+            f"""
+            <h1 style='text-align:center;
+                       color:#00BFFF;
+                       font-size:60px;'>
+                {accuracy:.1f}%
+            </h1>
+            """,
+            unsafe_allow_html=True
+        )
 
-    # -------------------------
-    # Accuracy Percentage
-    # -------------------------
-    st.markdown(
-        f"""
-        <h1 style='text-align:center;
-                   color:#00BFFF;
-                   font-size:60px;'>
-            {accuracy:.1f}%
-        </h1>
-        """,
-        unsafe_allow_html=True
+        if accuracy >= 90:
+            message = "🏆 Outstanding!"
+            color = "#00C853"
+
+        elif accuracy >= 75:
+            message = "🌟 Excellent!"
+            color = "#2E7D32"
+
+        elif accuracy >= 60:
+            message = "👍 Good!"
+            color = "#FFB300"
+
+        elif accuracy >= 40:
+            message = "🙂 Fair"
+            color = "#FB8C00"
+
+        else:
+            message = "📘 Needs Improvement"
+            color = "#E53935"
+
+        st.markdown(
+            f"""
+            <h2 style='text-align:center;color:{color};'>
+                {message}
+            </h2>
+            """,
+            unsafe_allow_html=True
+        )
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+            st.metric(
+                "Correct Answers",
+                f"{st.session_state.score}/{len(questions)}"
+            )
+
+        with col2:
+            st.metric(
+                "Accuracy",
+                f"{accuracy:.1f}%"
+            )
+
+        if accuracy >= 90:
+            st.success(
+                "Excellent work! You can accurately identify manipulated information."
+            )
+
+        elif accuracy >= 75:
+            st.info(
+                "Great job! Your ability to detect information manipulation is strong."
+            )
+
+        elif accuracy >= 60:
+            st.warning(
+                "Good effort! Review the explanations to strengthen your skills."
+            )
+
+        else:
+            st.error(
+                "Consider replaying the game to improve your credibility detection skills."
+            )
+
+        st.divider()
+
+        if st.button("🏠 Back to Home"):
+
+            st.session_state.page = "Home"
+            st.session_state.question_no = 0
+            st.session_state.score = 0
+            st.session_state.submitted = False
+
+            st.rerun()
+
+        return
+
+    # ===========================
+    # CURRENT QUESTION
+    # ===========================
+
+    q = questions.iloc[st.session_state.question_no]
+
+    st.title("🎮 IMT Defender")
+
+    st.subheader("Can You Identify the Manipulation?")
+
+    st.progress((st.session_state.question_no + 1) / len(questions))
+
+    st.write(
+        f"### Question {st.session_state.question_no + 1} of {len(questions)}"
     )
 
-    # -------------------------
-    # Performance Message
-    # -------------------------
-    if accuracy >= 90:
-        message = "🏆 Outstanding!"
-        color = "#00C853"
-
-    elif accuracy >= 75:
-        message = "🌟 Excellent!"
-        color = "#2E7D32"
-
-    elif accuracy >= 60:
-        message = "👍 Good!"
-        color = "#FFB300"
-
-    elif accuracy >= 40:
-        message = "🙂 Fair"
-        color = "#FB8C00"
-
-    else:
-        message = "📘 Needs Improvement"
-        color = "#E53935"
-
-    st.markdown(
-        f"""
-        <h2 style='text-align:center;
-                   color:{color};'>
-            {message}
-        </h2>
-        """,
-        unsafe_allow_html=True
-    )
-
-    # -------------------------
-    # Metrics
-    # -------------------------
-    col1, col2 = st.columns(2)
-
-    with col1:
-        st.metric("Correct Answers",
-                  f"{st.session_state.score}/{len(questions)}")
-
-    with col2:
-        st.metric("Accuracy",
-                  f"{accuracy:.1f}%")
-
-    # -------------------------
-    # Feedback
-    # -------------------------
-    if accuracy >= 90:
-        st.success(
-            "Excellent work! You can accurately identify manipulated information."
-        )
-
-    elif accuracy >= 75:
-        st.info(
-            "Great job! Your ability to detect information manipulation is strong."
-        )
-
-    elif accuracy >= 60:
-        st.warning(
-            "Good effort! Review the explanations to strengthen your skills."
-        )
-
-    else:
-        st.error(
-            "Consider replaying the game to improve your credibility detection skills."
-        )
-
-    st.divider()
-
-    if st.button("🏠 Back to Home"):
-
-        st.session_state.page = "Home"
-        st.session_state.question_no = 0
-        st.session_state.score = 0
-        st.session_state.submitted = False
-
-        st.rerun()
-
-    return
+    # Continue with your remaining question code...
 
 ###Call this game page
 
