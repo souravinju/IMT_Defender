@@ -378,155 +378,123 @@ def game_page():
     if "submitted" not in st.session_state:
         st.session_state.submitted = False
 
-    # ---------------------------
-    # Finish Game
-    # ---------------------------
+# ---------------------------
+# Finish Game
+# ---------------------------
     if st.session_state.question_no >= len(questions):
 
-        st.balloons()
+       st.balloons()
 
-        st.title("🎉 Congratulations!")
+       accuracy = (st.session_state.score / len(questions)) * 100
 
-        st.success("You have completed the IMT Defender Game.")
+       st.title("🎉 Quiz Completed!")
+       st.success("You have completed the IMT Defender Game.")
 
-        accuracy = (st.session_state.score / len(questions)) * 100
+       st.divider()
 
-        col1, col2 = st.columns(2)
+    # -------------------------
+    # Gauge Image
+    # -------------------------
+    col1, col2, col3 = st.columns([1,2,1])
 
-        with col1:
-            st.metric("Correct Answers", st.session_state.score)
+    with col2:
+        st.image("gauge.png", width=320)
 
-        with col2:
-            st.metric("Accuracy", f"{accuracy:.1f}%")
-
-        st.divider()
-
-        if st.button("🏠 Back to Home"):
-
-            st.session_state.page = "Home"
-
-            st.session_state.question_no = 0
-            st.session_state.score = 0
-            st.session_state.submitted = False
-
-            st.rerun()
-
-        return
-
-    # ---------------------------
-    # Current Question
-    # ---------------------------
-    q = questions.iloc[st.session_state.question_no]
-
-    st.title("🎮 IMT Defender")
-
-    st.subheader("Can You Identify the Manipulation?")
-
-    st.progress((st.session_state.question_no + 1) / len(questions))
-
-    st.write(
-        f"### Question {st.session_state.question_no + 1} of {len(questions)}"
+    # -------------------------
+    # Accuracy Percentage
+    # -------------------------
+    st.markdown(
+        f"""
+        <h1 style='text-align:center;
+                   color:#00BFFF;
+                   font-size:60px;'>
+            {accuracy:.1f}%
+        </h1>
+        """,
+        unsafe_allow_html=True
     )
 
-    st.divider()
+    # -------------------------
+    # Performance Message
+    # -------------------------
+    if accuracy >= 90:
+        message = "🏆 Outstanding!"
+        color = "#00C853"
 
-    # ---------------------------
-    # Advertisement
-    # ---------------------------
+    elif accuracy >= 75:
+        message = "🌟 Excellent!"
+        color = "#2E7D32"
 
-    st.markdown("## 📢 Advertisement")
+    elif accuracy >= 60:
+        message = "👍 Good!"
+        color = "#FFB300"
 
-    st.write(f"**Advertisement Type:** {q['Type']}")
-
-    st.write(f"**Creator:** {q['Creator']}")
-
-    st.info(q["Message"])
-
-    st.divider()
-
-    # ---------------------------
-    # Answer Options
-    # ---------------------------
-
-    answer = st.radio(
-        "Which type of Information Manipulation is this?",
-        [
-            q["Option1"],
-            q["Option2"],
-            q["Option3"],
-            q["Option4"],
-        ],
-        key=f"question_{st.session_state.question_no}"
-    )
-
-    # ---------------------------
-    # Submit
-    # ---------------------------
-
-    if not st.session_state.submitted:
-
-        if st.button("Submit Answer"):
-
-            st.session_state.submitted = True
-
-            if answer == q["Correct_Answer"]:
-
-                st.success("✅ Correct!")
-
-                st.session_state.score += 1
-
-            else:
-
-                st.error("❌ Incorrect")
-
-                st.write("### Correct Answer")
-
-                st.success(q["Correct_Answer"])
-
-            st.info(q["Explanation"])
-
-            st.rerun()
-
-    # ---------------------------
-    # After Submission
-    # ---------------------------
+    elif accuracy >= 40:
+        message = "🙂 Fair"
+        color = "#FB8C00"
 
     else:
+        message = "📘 Needs Improvement"
+        color = "#E53935"
 
-        if answer == q["Correct_Answer"]:
+    st.markdown(
+        f"""
+        <h2 style='text-align:center;
+                   color:{color};'>
+            {message}
+        </h2>
+        """,
+        unsafe_allow_html=True
+    )
 
-            st.success("✅ Correct!")
+    # -------------------------
+    # Metrics
+    # -------------------------
+    col1, col2 = st.columns(2)
 
-        else:
+    with col1:
+        st.metric("Correct Answers",
+                  f"{st.session_state.score}/{len(questions)}")
 
-            st.error("❌ Incorrect")
+    with col2:
+        st.metric("Accuracy",
+                  f"{accuracy:.1f}%")
 
-            st.write("### Correct Answer")
+    # -------------------------
+    # Feedback
+    # -------------------------
+    if accuracy >= 90:
+        st.success(
+            "Excellent work! You can accurately identify manipulated information."
+        )
 
-            st.success(q["Correct_Answer"])
+    elif accuracy >= 75:
+        st.info(
+            "Great job! Your ability to detect information manipulation is strong."
+        )
 
-        st.info(q["Explanation"])
+    elif accuracy >= 60:
+        st.warning(
+            "Good effort! Review the explanations to strengthen your skills."
+        )
 
-        col1, col2 = st.columns(2)
+    else:
+        st.error(
+            "Consider replaying the game to improve your credibility detection skills."
+        )
 
-        with col1:
+    st.divider()
 
-            st.metric(
-                "Current Score",
-                f"{st.session_state.score}/{len(questions)}"
-            )
+    if st.button("🏠 Back to Home"):
 
-        with col2:
+        st.session_state.page = "Home"
+        st.session_state.question_no = 0
+        st.session_state.score = 0
+        st.session_state.submitted = False
 
-            if st.button("Next Question ➜"):
+        st.rerun()
 
-                st.session_state.question_no += 1
-                st.session_state.submitted = False
-
-                st.rerun()
-
-if st.session_state.page == "Game":
-    game_page()
+    return
 
 
 
