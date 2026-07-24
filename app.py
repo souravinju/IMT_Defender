@@ -385,10 +385,14 @@ def credibility_gauge(score):
 
 def game_page():
 
+    # ---------------------------
     # Read Questions
+    # ---------------------------
     questions = pd.read_excel("IMT.xlsx")
 
+    # ---------------------------
     # Session Variables
+    # ---------------------------
     if "question_no" not in st.session_state:
         st.session_state.question_no = 0
 
@@ -398,9 +402,9 @@ def game_page():
     if "submitted" not in st.session_state:
         st.session_state.submitted = False
 
-    # ===========================
-    # FINISH GAME
-    # ===========================
+    # ---------------------------
+    # Finish Game
+    # ---------------------------
     if st.session_state.question_no >= len(questions):
 
         st.balloons()
@@ -412,7 +416,6 @@ def game_page():
 
         st.divider()
 
-        # Dynamic Gauge
         credibility_gauge(accuracy)
 
         st.markdown(
@@ -502,9 +505,9 @@ def game_page():
 
         return
 
-    # ===========================
-    # CURRENT QUESTION
-    # ===========================
+    # ---------------------------
+    # Current Question
+    # ---------------------------
 
     q = questions.iloc[st.session_state.question_no]
 
@@ -518,7 +521,70 @@ def game_page():
         f"### Question {st.session_state.question_no + 1} of {len(questions)}"
     )
 
-    # Continue with your remaining question code...
+    st.markdown("---")
+
+    st.markdown("## 📢 Advertisement")
+
+    st.info(q["Message"])
+
+    st.write(f"**Creator:** {q['Creator']}")
+
+    st.markdown("---")
+
+    options = [
+        q["Option1"],
+        q["Option2"],
+        q["Option3"],
+        q["Option4"]
+    ]
+
+    answer = st.radio(
+        "Choose the correct manipulation type:",
+        options,
+        key=f"answer_{st.session_state.question_no}"
+    )
+
+    # ---------------------------
+    # Submit Answer
+    # ---------------------------
+
+    if not st.session_state.submitted:
+
+        if st.button("✅ Submit Answer"):
+
+            st.session_state.submitted = True
+
+            if answer == q["Correct_Answer"]:
+                st.session_state.score += 1
+
+            st.rerun()
+
+    # ---------------------------
+    # Show Result
+    # ---------------------------
+
+    if st.session_state.submitted:
+
+        if answer == q["Correct_Answer"]:
+            st.success("✅ Correct!")
+
+        else:
+            st.error("❌ Incorrect!")
+
+        st.write("### Correct Answer")
+
+        st.success(q["Correct_Answer"])
+
+        st.write("### Explanation")
+
+        st.info(q["Explanation"])
+
+        if st.button("➡ Next Question"):
+
+            st.session_state.question_no += 1
+            st.session_state.submitted = False
+
+            st.rerun()
 
 ###Call this game page
 
